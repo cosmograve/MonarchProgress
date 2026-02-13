@@ -1,21 +1,27 @@
-//
-//  ContentView.swift
-//  MonarchProgress
-//
-//  Created by Алексей Авер on 13.02.2026.
-//
-
 import SwiftUI
 
 struct ContentView: View {
+    private let onboardingRepository: OnboardingRepository = UserDefaultsOnboardingRepository()
+    @State private var shouldShowOnboarding: Bool = true
+    
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        Group {
+            if shouldShowOnboarding {
+                OnboardingFlowView(
+                    viewModel: OnboardingViewModel(repository: onboardingRepository),
+                    onFinished: {
+                        shouldShowOnboarding = false
+                    }
+                )
+            } else {
+                MainView()
+            }
         }
-        .padding()
+        .onAppear {
+            let completed = onboardingRepository.isOnboardingCompleted()
+            shouldShowOnboarding = !completed
+        }
     }
 }
 
