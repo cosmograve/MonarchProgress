@@ -15,7 +15,7 @@ struct ContentView: View {
                     }
                 )
             } else {
-                MainView()
+                MainContainerView()
             }
         }
         .onAppear {

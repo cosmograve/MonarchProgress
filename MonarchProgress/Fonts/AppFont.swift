@@ -4,8 +4,8 @@ import UIKit
 enum AppFont {
 
     enum Family {
-        static let iMedium = "Inter_28pt-Medium"
-        static let iRegular  = "Inter_28pt-Regular"
+        static let iMedium = "Inter28pt-Medium"
+        static let iRegular = "Inter28pt-Regular"
     }
 
     enum Weight {
@@ -37,9 +37,3 @@ extension Font {
         self = Font(uiFont as CTFont)
     }
 }
-
-//Text("Hello")
-//    .font(AppFont.poppins(size: 20, weight: .medium))
-//
-//Text("Subtitle")
-//    .font(AppFont.poppins(size: 13, weight: .regular))
