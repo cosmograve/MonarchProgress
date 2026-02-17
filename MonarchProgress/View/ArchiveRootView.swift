@@ -418,18 +418,18 @@ private enum MPButterflyPositions {
 
     static let normalized: [CGPoint] = [
         // LEFT wing
-        CGPoint(x: 0.28, y: 0.33), CGPoint(x: 0.39, y: 0.33),
-        CGPoint(x: 0.28, y: 0.43), CGPoint(x: 0.39, y: 0.43),
-        CGPoint(x: 0.28, y: 0.53), CGPoint(x: 0.39, y: 0.53),
-        CGPoint(x: 0.28, y: 0.63), CGPoint(x: 0.39, y: 0.63),
-        CGPoint(x: 0.28, y: 0.73), CGPoint(x: 0.39, y: 0.73),
+        CGPoint(x: 0.28, y: 0.33), CGPoint(x: 0.42, y: 0.33),
+        CGPoint(x: 0.28, y: 0.43), CGPoint(x: 0.42, y: 0.43),
+        CGPoint(x: 0.28, y: 0.53), CGPoint(x: 0.42, y: 0.53),
+        CGPoint(x: 0.28, y: 0.63), CGPoint(x: 0.42, y: 0.63),
+        CGPoint(x: 0.28, y: 0.73), CGPoint(x: 0.42, y: 0.73),
 
         // RIGHT wing
-        CGPoint(x: 0.61, y: 0.33), CGPoint(x: 0.72, y: 0.33),
-        CGPoint(x: 0.61, y: 0.43), CGPoint(x: 0.72, y: 0.43),
-        CGPoint(x: 0.61, y: 0.53), CGPoint(x: 0.72, y: 0.53),
-        CGPoint(x: 0.61, y: 0.63), CGPoint(x: 0.72, y: 0.63),
-        CGPoint(x: 0.61, y: 0.73), CGPoint(x: 0.72, y: 0.73)
+        CGPoint(x: 0.58, y: 0.33), CGPoint(x: 0.72, y: 0.33),
+        CGPoint(x: 0.58, y: 0.43), CGPoint(x: 0.72, y: 0.43),
+        CGPoint(x: 0.58, y: 0.53), CGPoint(x: 0.72, y: 0.53),
+        CGPoint(x: 0.58, y: 0.63), CGPoint(x: 0.72, y: 0.63),
+        CGPoint(x: 0.58, y: 0.73), CGPoint(x: 0.72, y: 0.73)
     ]
 }
 
