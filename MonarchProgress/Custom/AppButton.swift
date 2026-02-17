@@ -1,45 +1,26 @@
-
 import SwiftUI
 
 struct AppButtonShadow: Equatable {
 
-    /// Включена ли тень.
     var isEnabled: Bool
-
-    /// Радиус размытия тени.
     var radius: CGFloat
-
-    /// Смещение тени по оси X.
     var x: CGFloat
-
-    /// Смещение тени по оси Y.
     var y: CGFloat
-
-    /// Прозрачность тени (0...1).
     var opacity: Double
 
-    /// Создаёт "выключенную" тень.
     static var none: AppButtonShadow {
         AppButtonShadow(isEnabled: false, radius: 0, x: 0, y: 0, opacity: 0)
     }
 
-    /// Нормальная мягкая тень по умолчанию.
     static var soft: AppButtonShadow {
         AppButtonShadow(isEnabled: true, radius: 12, x: 0, y: 6, opacity: 0.22)
     }
 }
 
-// MARK: - Size config
-
-/// Настройки размера кнопки.
-/// Можно:
-/// - fixed: задать точные ширину/высоту
-/// - fullWidth: занять всю доступную ширину, указав высоту
 enum AppButtonSize: Equatable {
     case fixed(width: CGFloat, height: CGFloat)
     case fullWidth(height: CGFloat)
 
-    /// Высота кнопки (общая для обоих кейсов).
     var height: CGFloat {
         switch self {
         case let .fixed(_, height): return height
@@ -50,22 +31,13 @@ enum AppButtonSize: Equatable {
 
 struct AppButton: View {
 
-    // MARK: - Inputs
-
     let title: String
-
     let size: AppButtonSize
-
     let cornerRadius: CGFloat
-
     let backgroundColor: Color
-
     let foregroundColor: Color
-
     let shadow: AppButtonShadow
-
     let isEnabled: Bool
-
     let action: () -> Void
 
     init(
@@ -87,7 +59,6 @@ struct AppButton: View {
         self.isEnabled = isEnabled
         self.action = action
     }
-
 
     var body: some View {
         Button {
@@ -114,7 +85,6 @@ struct AppButton: View {
         .accessibilityLabel(Text(title))
     }
 
-
     private var maxWidth: CGFloat? {
         switch size {
         case .fullWidth:
@@ -124,7 +94,6 @@ struct AppButton: View {
         }
     }
 }
-
 
 private extension View {
 

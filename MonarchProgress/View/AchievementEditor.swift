@@ -14,35 +14,42 @@ enum AchievementEditorMode {
 
 struct AchievementEditorOverlay: View {
 
+
     @EnvironmentObject private var store: AppStore
 
     @Binding var isPresented: Bool
 
     let mode: AchievementEditorMode
 
+    // MARK: - Form State
 
     @State private var titleText: String = ""
+
     @State private var descriptionText: String = ""
+
     @State private var targetDate: Date? = nil
+
     @State private var status: MPAchievementStatus = .inProgress
 
     @State private var showDatePicker: Bool = false
 
     // MARK: - Styling
 
-    private let bg = AppColors.background
     private let gold = AppColors.gold
     private let cream = AppColors.cream
+    private let bg = AppColors.background
 
     private let cardCorner: CGFloat = 18
+
     private let sidePadding: CGFloat = 18
 
+    // MARK: - Prefill
 
     private func prefillIfNeeded() {
         switch mode {
         case .create:
-            // пусто
             break
+
         case .edit(let a):
             titleText = a.title
             descriptionText = a.details
@@ -51,10 +58,14 @@ struct AchievementEditorOverlay: View {
         }
     }
 
+    // MARK: - Body
+
     var body: some View {
         ZStack {
-            Color.black.opacity(0.55)
+
+            Color.black.opacity(0.82)
                 .ignoresSafeArea()
+                .contentShape(Rectangle())
                 .onTapGesture {
                     hideKeyboard()
                 }
@@ -97,22 +108,12 @@ struct AchievementEditorOverlay: View {
                 }
             }
             .frame(maxWidth: 360)
-            .background(
-                RoundedRectangle(cornerRadius: cardCorner, style: .continuous)
-                    .fill(Color.white.opacity(0.06))
-                    .overlay(
-                        RoundedRectangle(cornerRadius: cardCorner, style: .continuous)
-                            .stroke(gold.opacity(0.20), lineWidth: 1)
-                    )
-            )
+            .background(cardBackground())
             .padding(.horizontal, 24)
         }
         .dismissKeyboardOnTap()
-        .keyboardDoneToolbar() // ✅ Done над клавиатурой
-        .onAppear {
-            prefillIfNeeded()
-        }
-        // Full-screen date picker
+        .keyboardDoneToolbar(title: "Done")
+        .onAppear { prefillIfNeeded() }
         .fullScreenCover(isPresented: $showDatePicker) {
             CompletionDatePickerScreen(
                 selectedDate: Binding(
@@ -125,10 +126,32 @@ struct AchievementEditorOverlay: View {
         }
     }
 
+    // MARK: - Card Background
+
+    private func cardBackground() -> some View {
+        RoundedRectangle(cornerRadius: cardCorner, style: .continuous)
+            .fill(
+                LinearGradient(
+                    colors: [
+                        Color(hex: "2A1A12"),
+                        Color(hex: "1E120D")
+                    ],
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                )
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: cardCorner, style: .continuous)
+                    .stroke(gold.opacity(0.25), lineWidth: 1)
+            )
+            .shadow(color: Color.black.opacity(0.35), radius: 22, x: 0, y: 18)
+    }
+
     // MARK: - Header
 
     private func header() -> some View {
-        HStack {
+        HStack(spacing: 12) {
+
             Text(mode.title)
                 .font(AppFont.inter(size: 18, weight: .medium))
                 .foregroundStyle(cream)
@@ -136,6 +159,7 @@ struct AchievementEditorOverlay: View {
             Spacer()
 
             Button {
+                // Закрываем оверлей
                 isPresented = false
             } label: {
                 Image(systemName: "xmark")
@@ -149,7 +173,7 @@ struct AchievementEditorOverlay: View {
         .padding(.top, 4)
     }
 
-    // MARK: - Small UI helpers
+    // MARK: - Field Titles
 
     private func fieldTitle(_ text: String) -> some View {
         Text(text)
@@ -157,12 +181,14 @@ struct AchievementEditorOverlay: View {
             .foregroundStyle(cream.opacity(0.85))
     }
 
+    // MARK: - Date text
+
     private func targetDateText() -> String {
         guard let targetDate else { return "Select date" }
         return DateFormatter.shortMonDayYear.string(from: targetDate)
     }
 
-    // MARK: - Status buttons
+    // MARK: - Status Buttons
 
     private func statusButtons() -> some View {
         HStack(spacing: 12) {
@@ -194,10 +220,11 @@ struct AchievementEditorOverlay: View {
         .buttonStyle(.plain)
     }
 
-    // MARK: - Bottom buttons
+    // MARK: - Bottom Buttons
 
     private func buttonsRow() -> some View {
         HStack(spacing: 12) {
+
             Button {
                 isPresented = false
             } label: {
@@ -236,10 +263,11 @@ struct AchievementEditorOverlay: View {
         .padding(.top, 4)
     }
 
+    // MARK: - Save
+
     private func onSave() {
         hideKeyboard()
 
-        // простая валидация
         let trimmedTitle = titleText.trimmingCharacters(in: .whitespacesAndNewlines)
         if trimmedTitle.isEmpty {
             return

@@ -26,7 +26,7 @@ enum MPAchievementStatus: String, CaseIterable, Codable {
 }
 
 
-struct MPAchievement: Identifiable, Codable, Equatable {
+struct MPAchievement: Identifiable, Codable, Equatable, Hashable {
     let id: UUID
     
     var stage: MPStage

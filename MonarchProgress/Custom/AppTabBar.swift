@@ -1,11 +1,3 @@
-//
-//  AppTabBar.swift
-//  MonarchProgress
-//
-//  Created by Алексей Авер on 16.02.2026.
-//
-
-
 import SwiftUI
 
 struct AppTabBar: View {

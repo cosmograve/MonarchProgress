@@ -6,7 +6,23 @@ final class AppStore: ObservableObject {
 
     @Published private(set) var activeCycle: MPCycle?
     @Published private(set) var archivedCycles: [MPCycle] = []
+    
+    @Published var isAchievementEditorPresented: Bool = false
+    @Published var achievementEditorMode: AchievementEditorMode = .create
 
+    func presentNewAchievement() {
+        achievementEditorMode = .create
+        isAchievementEditorPresented = true
+    }
+
+    func presentEditAchievement(_ achievement: MPAchievement) {
+        achievementEditorMode = .edit(achievement: achievement)
+        isAchievementEditorPresented = true
+    }
+
+    func dismissAchievementEditor() {
+        isAchievementEditorPresented = false
+    }
 
     private let cycleRepo: MPCycleRepository
     private let achievementRepo: MPAchievementRepository
@@ -68,7 +84,6 @@ final class AppStore: ObservableObject {
 
     // MARK: - Archive
 
-    /// Архивируем цикл и начинаем новый ТОЛЬКО если butterfly 20/20 выполнено
     func archiveIfCompletedAndStartNew() {
         do {
             guard let active = activeCycle else {

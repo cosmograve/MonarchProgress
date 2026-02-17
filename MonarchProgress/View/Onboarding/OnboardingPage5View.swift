@@ -1,9 +1,3 @@
-//
-//  OnboardingPage5View.swift
-//  MonarchProgress
-//
-//  Created by Алексей Авер on 13.02.2026.
-//
 
 import SwiftUI
 
